@@ -51,7 +51,7 @@ def input_data(default=False):
     return n, m, c, A, b, label_pembatas, label_tujuan
 
 def print_tableau(tableau, n, m, step, decision_labels, basis_labels):
-    headers = ["Basis", "Z"] + decision_labels + [f"S{i+1}" for i in range(m)] + ["Solusi"]
+    headers = ["Basis", "Z"] + [f"X{j+1}"for j in range(n)] + [f"S{i+1}" for i in range(m)] + ["Solusi"]
     data = []
     for i, row in enumerate(tableau):
         if i < len(tableau) - 1:
@@ -132,7 +132,7 @@ def simplex(n, m, c, A, b, label_tujuan):
         if pivot_row == -1:
             st.error("Masalah tidak terbatas (unbounded). Tidak ada baris yang memenuhi syarat pivot.")
             break
-        entering_var = label_tujuan[pivot_col] if pivot_col < len(label_tujuan) else f"S{pivot_col - len(label_tujuan) + 1}"
+        entering_var = f"X{pivot_col + 1}"
         basis_labels[pivot_row] = entering_var
         pivot(tableau, pivot_row, pivot_col)
         step += 1
