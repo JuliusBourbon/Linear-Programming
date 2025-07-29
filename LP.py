@@ -61,7 +61,7 @@ def print_tableau(tableau, n, m, step, label_tujuan):
             basis_var = "Z"
             z_val = "1"
         data.append([basis_var, z_val] + [f"{val:.2f}" for val in row])
-    st.subheader(f"Iterasi {step}")
+    st.subheader(f"Iterasi {step-1}")
     st.table([headers] + data)
 
 def build_tableau(n, m, c, A, b):
@@ -156,13 +156,22 @@ def main():
     with tab1:
         st.header("Contoh Kasus Bolu Amanda")
         n, m, c, A, b, label_pembatas, label_tujuan = input_data(default=True)
+        # Keterangan fungsi tujuan dan pembatas
+        st.subheader("Keterangan")
+        for i in range(n):
+            st.write(f"X{i+1} = {label_tujuan[i]}")
+
         st.subheader("Fungsi Tujuan")
         st.write("Maksimasi Z = ")
-        st.write(" - ".join([f"{c[i]} * {label_tujuan[i]}" for i in range(n)]))
+        st.write(" - ".join([f"{c[i]}x{i+1}" for i in range(n)]))
+        st.subheader("")
         st.subheader("Fungsi Pembatas")
         for i in range(m):
             st.write(f"{label_pembatas[i]}: ")
-            st.write(" + ".join([f"{A[i][j]} * {label_tujuan[j]}" for j in range(n)]) + f" <= {b[i]}")
+            st.write(" + ".join([f"{A[i][j]}X{j+1}"
+                for j in range(n)]) + f" <= {b[i]}")
+
+        st.write(", ".join([f"X{i+1}" for i in range(n)] + [f"S{i+1}" for i in range(m)] + [">= 0"]))
         
         if st.button("Hitung Simpleks", key="default_btn"):
             final_tableau = simplex(n, m, c, A, b, label_tujuan)
