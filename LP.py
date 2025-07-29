@@ -163,16 +163,15 @@ def main():
         st.subheader("Keterangan")
         for i in range(n):
             st.write(f"X{i+1} = {label_tujuan[i]}")
-
+            
+        st.subheader("")
         st.subheader("Fungsi Tujuan")
-        st.write("Maksimasi Z = ")
-        st.write(" - ".join([f"{c[i]}x{i+1}" for i in range(n)]))
+        st.write("Maksimasi Z = " + " - ".join([f"{c[i]}x{i+1}" for i in range(n)]))
         st.subheader("")
         st.subheader("Fungsi Pembatas")
         for i in range(m):
-            st.write(f"{label_pembatas[i]}: ")
-            st.write(" + ".join([f"{A[i][j]}X{j+1}"
-                for j in range(n)]) + f" <= {b[i]}")
+            st.write(f"{label_pembatas[i]}: " + " + ".join([f"{A[i][j]}X{j+1}" for j in range(n)]) + f" <= {b[i]}")
+            st.write()
 
         st.write(", ".join([f"X{i+1}" for i in range(n)] + [f"S{i+1}" for i in range(m)] + [">= 0"]))
         
