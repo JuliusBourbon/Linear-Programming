@@ -51,15 +51,17 @@ def input_data(default=False):
     return n, m, c, A, b, label_pembatas, label_tujuan
 
 def print_tableau(tableau, n, m, step, label_tujuan):
-    headers = ["Basis"] + label_tujuan + [f"S{i+1}" for i in range(m)] + ["Solusi"]
+    headers = ["Basis", "Z"] + label_tujuan + [f"S{i+1}" for i in range(m)] + ["Solusi"]
     data = []
     for i, row in enumerate(tableau):
         if i < len(tableau) - 1:
             basis_var = f"S{i+1}"
+            z_val = "0"
         else:
             basis_var = "Z"
-        data.append([basis_var] + [f"{val:.2f}" for val in row])
-    st.subheader(f"Iterasi {step-1}")
+            z_val = "1"
+        data.append([basis_var, z_val] + [f"{val:.2f}" for val in row])
+    st.subheader(f"Iterasi {step}")
     st.table([headers] + data)
 
 def build_tableau(n, m, c, A, b):
