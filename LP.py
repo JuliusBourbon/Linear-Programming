@@ -153,7 +153,7 @@ def extract_solution(tableau, n, m):
     return sol, z
 
 def main():
-    st.set_page_config(page_title="Simpleks LP", layout="wide")
+    st.set_page_config(page_title="Simpleks LP", layout="centered")
     tab1, tab2 = st.tabs(["Contoh Kasus", "User Input"])
 
     with tab1:
