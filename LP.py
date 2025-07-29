@@ -50,12 +50,12 @@ def input_data(default=False):
 
     return n, m, c, A, b, label_pembatas, label_tujuan
 
-def print_tableau(tableau, n, m, step, label_tujuan):
-    headers = ["Basis", "Z"] + label_tujuan + [f"S{i+1}" for i in range(m)] + ["Solusi"]
+def print_tableau(tableau, n, m, step, decision_labels, basis_labels):
+    headers = ["Basis", "Z"] + decision_labels + [f"S{i+1}" for i in range(m)] + ["Solusi"]
     data = []
     for i, row in enumerate(tableau):
         if i < len(tableau) - 1:
-            basis_var = f"S{i+1}"
+            basis_var = basis_labels[i]
             z_val = "0"
         else:
             basis_var = "Z"
@@ -121,8 +121,9 @@ def find_pivot_row(tableau, pivot_col):
 def simplex(n, m, c, A, b, label_tujuan):
     tableau = build_tableau(n, m, c, A, b)
     step = 1
+    basis_labels = [f"S{i+1}" for i in range(m)]
     while True:
-        print_tableau(tableau, n, m, step, label_tujuan)
+        print_tableau(tableau, n, m, step, label_tujuan, basis_labels)
         pivot_col = find_pivot_column(tableau)
         if pivot_col == -1:
             st.success("Solusi optimal ditemukan.")
@@ -131,6 +132,8 @@ def simplex(n, m, c, A, b, label_tujuan):
         if pivot_row == -1:
             st.error("Masalah tidak terbatas (unbounded). Tidak ada baris yang memenuhi syarat pivot.")
             break
+        entering_var = label_tujuan[pivot_col] if pivot_col < len(label_tujuan) else f"S{pivot_col - len(label_tujuan) + 1}"
+        basis_labels[pivot_row] = entering_var
         pivot(tableau, pivot_row, pivot_col)
         step += 1
     return tableau
