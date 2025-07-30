@@ -154,11 +154,19 @@ def extract_solution(tableau, n, m):
 
 def main():
     st.set_page_config(page_title="Simpleks LP", layout="centered")
-    tab1, tab2 = st.tabs(["Contoh Kasus", "User Input"])
+    tab1, tab2 = st.tabs(["Kasus Bolu X", "Perhitungan Dinamis"])
 
     with tab1:
-        st.header("Contoh Kasus")
-        st.subheader("Optimasi Program Linear untuk Memaksimalkan keuntungan Penjualan Bolu Amanda")
+        st.header("OPTIMASI PROGRAM LINEAR DENGAN METODE SIMPLEKS UNTUK MEMAKSIMALKAN KEUNTUNGAN PENJUALAN BOLU X ")
+        st.write("Aplikasi ini digunakan untuk menyelesaikan masalah optimasi program linear dengan metode simpleks untuk memaksimalkan keuntungan penjualan bolu X.")
+        st.header("IF3")
+        st.subheader("Anggota Kelompok")
+        st.write(f"""
+            - 10123090 - Raihan Fathir Muhammad
+            - 10123108 - Leatry Zhalsabila Putri
+            - 10123115 - Muhammad Favian Jiwani
+            - 10123091 - Alghifari Raspati
+        """)
         n, m, c, A, b, label_pembatas, label_tujuan = input_data(default=True)
         # Keterangan fungsi tujuan dan pembatas
         st.subheader("Keterangan")
@@ -167,7 +175,7 @@ def main():
             
         st.subheader("")
         st.subheader("Fungsi Tujuan")
-        st.write("Maksimasi Z = " + " - ".join([f"{c[i]}x{i+1}" for i in range(n)]))
+        st.write("Maksimasi Z - " + " - ".join([f"{c[i]}X{i+1}" for i in range(n)]) + " = 0")
         st.subheader("")
         st.subheader("Fungsi Pembatas")
         for i in range(m):
@@ -182,7 +190,7 @@ def main():
 
             st.subheader("Hasil Akhir")
             for i in range(n):
-                st.write(f"{label_tujuan[i]} (x{i+1}) = {solution[i]:.2f}")
+                st.write(f"{label_tujuan[i]} (X{i+1}) = {solution[i]:.2f}")
 
             hasil = "Untuk mencapai maksimasi, "
             hasil += ", ".join([f"{label_tujuan[i]} harus diproduksi sejumlah ± {solution[i]:.0f}" for i in range(n) if solution[i] > 0])
