@@ -15,12 +15,12 @@ def input_data(default=False):
         ]
         b = [80, 8500, 800, 2000]
     else:
-        st.subheader("Masukkan Jumlah Variabel dan Kendala")
+        st.subheader("Masukkan Jumlah Fungsi Tujuan dan Fungsi Pembatas")
         n = st.number_input("Jumlah variabel keputusan", min_value=1, step=1)
-        m = st.number_input("Jumlah kendala", min_value=1, step=1)
+        m = st.number_input("Jumlah Fungsti Pembatas", min_value=1, step=1)
 
         label_tujuan = []
-        st.subheader("Label Variabel Keputusan")
+        st.subheader("Label Fungsi Tujuan")
         for i in range(n):
             label = st.text_input(f"Label variabel x{i+1}")
             label_tujuan.append(label if label else f"x{i+1}")
@@ -37,7 +37,7 @@ def input_data(default=False):
 
         st.subheader("Fungsi Pembatas")
         for i in range(m):
-            label = st.text_input(f"Label kendala {i+1}")
+            label = st.text_input(f"Label Pembatas {i+1}")
             label_pembatas.append(label if label else f"K{i+1}")
             row = []
             cols = st.columns(n + 1)
@@ -157,7 +157,8 @@ def main():
     tab1, tab2 = st.tabs(["Contoh Kasus", "User Input"])
 
     with tab1:
-        st.header("Contoh Kasus Bolu Amanda")
+        st.header("Contoh Kasus")
+        st.subheader("Optimasi Program Linear untuk Memaksimalkan keuntungan Penjualan Bolu Amanda")
         n, m, c, A, b, label_pembatas, label_tujuan = input_data(default=True)
         # Keterangan fungsi tujuan dan pembatas
         st.subheader("Keterangan")
@@ -189,7 +190,7 @@ def main():
             st.success(hasil)
 
     with tab2:
-        st.header("Masukkan Data Sendiri")
+        st.header("Optimasi Program Linear untuk Maksimasi")
         n, m, c, A, b, label_pembatas, label_tujuan = input_data(default=False)
         if st.button("Hitung Simpleks", key="manual_btn"):
             final_tableau = simplex(n, m, c, A, b, label_tujuan)
